@@ -42,6 +42,7 @@
                                 </tbody>
                             </table>
                         </div>
+                        <router-link :to="{ name: 'dashboard' }" class="btn btn-warning">Back</router-link>
                     </div>
                 </div>
             </div>
@@ -65,6 +66,38 @@ export default {
       this.axios.get(uri).then(response => {
         this.users = response.data;
       })
+    },
+    methods: {
+      deletePost(id)
+      {
+        this.$swal.fire({
+          title: 'Apakah kamu yakin?',
+          text: "Jika kamu hapus, maka data tida akan kembali lagi.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Hapus Deh',
+          cancelButtonText: 'Nggak Jadi'
+        }).then((result) => {
+          if (result.value) {
+            this.$swal.fire({
+              title: 'Success',
+              text: 'Article deleted successfully',
+              icon: 'success',
+              timer: 1000
+            });
+
+            let uri = `http://localhost:8000/api/user/delete/${id}`;
+            this.axios.delete(uri).then(response => {
+              this.users.splice(this.users.indexOf(id), 1);
+            });
+            console.log("Deleted user with id ..." + id);
+
+
+          }
+        })
+      }
     }
 }
 </script>
