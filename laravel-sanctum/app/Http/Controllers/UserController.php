@@ -36,7 +36,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $project = \App\User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
+        ]);
+
+        $msg = [
+            'success' => true,
+            'message' => 'User created successfully'
+        ];
+
+        return response()->json($msg);
     }
 
     /**
@@ -45,9 +62,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getUser($id)
     {
-        //
+        $user = \App\User::find($id);
+
+        return $user->toJson();
     }
 
     /**
@@ -70,7 +89,24 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $user = \App\User::find($id);
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->password = $validatedData['password'];
+        $user->save();
+
+        $msg = [
+            'success' => true,
+            'message' => 'User updated successfully'
+        ];
+
+        return response()->json($msg);
     }
 
     /**
@@ -79,8 +115,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $users = \App\User::find($id);
+        if(!empty($user)){
+            $user->delete();
+            $msg = [
+                'success' => true,
+                'message' => 'User deleted successfully!'
+            ];
+            return response()->json($msg);
+        } else {
+            $msg = [
+                'success' => false,
+                'message' => 'User deleted failed!'
+            ];
+            return response()->json($msg);
+        }
     }
 }
