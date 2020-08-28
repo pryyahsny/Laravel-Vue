@@ -117,7 +117,7 @@ class UserController extends Controller
      */
     public function delete($id)
     {
-        $users = \App\User::find($id);
+        $user = \App\User::find($id);
         if(!empty($user)){
             $user->delete();
             $msg = [
