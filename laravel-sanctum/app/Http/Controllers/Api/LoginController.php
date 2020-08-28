@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
-{    
+{
     /**
      * index
      *
@@ -23,25 +23,25 @@ class LoginController extends Controller
         ]);
 
         $user= User::where('email', $request->email)->first();
-        
+
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response([
                     'success'   => false,
                     'message' => ['These credentials do not match our records.']
                 ], 404);
             }
-        
+
             $token = $user->createToken('ApiToken')->plainTextToken;
-        
+
             $response = [
                 'success'   => true,
                 'user'      => $user,
                 'token'     => $token
             ];
-        
+
         return response($response, 201);
     }
-    
+
     /**
      * logout
      *
@@ -51,7 +51,7 @@ class LoginController extends Controller
     {
         auth()->logout();
         return response()->json([
-            'success'    => true
+            'success' => true,
         ], 200);
     }
 
