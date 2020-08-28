@@ -23,3 +23,13 @@ Route::get('/logout', 'Api\LoginController@logout');
 
 // User
 Route::get('/users', 'UserController@index');
+
+Route::post('/user/store', 'UserController@store');
+
+Route::get('/user/edit/{id}', 'UserController@getUser');
+
+Route::get('/user/show/{id}', 'UserController@getUser');
+
+Route::put('/user/update/{id}', 'UserController@update');
+
+Route::delete('/user/delete/{id}', 'UserController@delete');
