@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', 'Api\LoginController@index');
 Route::get('/logout', 'Api\LoginController@logout');
+
+// User
+Route::get('/users', 'UserController@index');
