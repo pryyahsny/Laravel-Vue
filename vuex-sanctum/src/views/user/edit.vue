@@ -28,10 +28,6 @@
                 <input type="text" class="form-control" v-model="user.email" id="email">
               </div>
               <div class="form-group">
-                <label htmlfor="password">Password</label>
-                <input type="text" class="form-control" v-model="user.password">
-              </div>
-              <div class="form-group">
                 <router-link :to="{ name:'user' }" class="btn btn-secondary">
                   Back
                 </router-link>
@@ -64,14 +60,14 @@ export default {
   created() {
     let uri = `http://localhost:8000/api/user/edit/${this.$route.params.id}`;
     this.axios.get(uri).then((response) => {
-      this.user.response.data;
+      this.user = response.data;
     });
   },
 
   methods: {
     updateUser(e){
 
-      if (this.$data.user.title != null && this.$data.article.content != null){
+      if (this.$data.user.name != null && this.$data.user.email != null){
         this.$swal.fire({
           title: 'Success',
           text: "User created successfully",
