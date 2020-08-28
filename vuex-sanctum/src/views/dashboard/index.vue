@@ -11,6 +11,8 @@
                 <router-link :to="{name: 'dashboard'}" class="list-group-item text-dark text-decoration-none">
                   DASHBOARD
                 </router-link>
+                <router-link :to="{name: 'user'}" class="list-group-item text-dark text-decoration-none">USER</router-link>
+
                 <li @click="logout" class="list-group-item text-dark text-decoration-none" style="cursor:pointer">LOGOUT</li>
               </ul>
             </div>
